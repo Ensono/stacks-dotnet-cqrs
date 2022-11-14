@@ -19,7 +19,7 @@
     <PackageReference Include="Amido.Stacks.API" Version="0.2.21" />
     <PackageReference Include="Amido.Stacks.API.Swagger" Version="0.2.33" />
     <PackageReference Include="Amido.Stacks.Application.CQRS.Abstractions" Version="0.2.17" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
