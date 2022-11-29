@@ -9,7 +9,7 @@ metadata:
 
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -31,7 +31,6 @@ metadata:
     applicationId: ${project}/${app_name}
     applicationName: ${project}-${app_name}
     customerID: ${company}
-    kubernetes.io/ingress.class: alb
     owner: ${company}/${project}
     projectID: ${project}
     version: ${version}
@@ -45,12 +44,15 @@ metadata:
   name: ${resource_def_name}
   namespace: ${namespace}
 spec:
+  ingressClassName: alb
   rules:
     - http:
         paths:
           - backend:
-              serviceName: ${resource_def_name}
-              servicePort: 80
+              service:
+                name: ${resource_def_name}
+                port:
+                  number: 80
             path: ${k8s_app_route}/*
             pathType: ImplementationSpecific
 ---
