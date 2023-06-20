@@ -43,7 +43,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ .Values.app.workerimagename }}
+          image: {{ .Values.image.name }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           env:
@@ -76,6 +76,16 @@ spec:
                 secretKeyRef:
                   name: {{ include "stacks-dotnet.secretName" . }}
                   key: app_insights
+            - name: COSMOSDB_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "stacks-dotnet.secretName" . }}
+                  key: cosmos_key
+            - name: SERVICEBUS_CONNECTIONSTRING
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "stacks-dotnet.secretName" . }}
+                  key: servicebus_connectionstring
           volumeMounts:
             - name: appsettings
               mountPath: /app/config # this can either be configured if you are re-using this for many services or should be changed here
