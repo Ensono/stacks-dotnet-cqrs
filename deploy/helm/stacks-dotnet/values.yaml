@@ -85,6 +85,7 @@ app:
   name: ${resource_def_name}
   version: 0.0.1
   workersuffix: worker
+  workerimagename: ${worker_image}
   sbtopic: ${servicebus_topic_name}
   sbsubscription:  ${servicebus_subscription_name}
   sbconnectionstring:  ${servicebus_connectionstring}
