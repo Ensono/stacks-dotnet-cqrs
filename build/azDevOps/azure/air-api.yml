@@ -270,6 +270,9 @@ stages:
                     K8S_CLUSTER_TARGET: $(k8s_cluster_target_nonprod)
                     K8S_CLUSTER_IDENTIFIER: $(k8s_cluster_identifier_nonprod)
                     K8S_RESOURCE_FILE: $(k8s_resource_file)
+                    # Helm Config
+                    HELM_VALUE_FILE: ${helm_value_file}
+                    HELM_CHART_FILE: ${helm_chart_file}
 
                 - task: PublishPipelineArtifact@1
                   displayName: "Publish: Kubernetes Manifest"
@@ -453,6 +456,9 @@ stages:
                     K8S_CLUSTER_TARGET: $(k8s_cluster_target_nonprod)
                     K8S_CLUSTER_IDENTIFIER: $(k8s_cluster_identifier_nonprod)
                     K8S_RESOURCE_FILE: $(k8s_resource_file)
+                    # Helm Config
+                    HELM_VALUE_FILE: ${helm_value_file}
+                    HELM_CHART_FILE: ${helm_chart_file}
 
                 - task: PublishPipelineArtifact@1
                   displayName: "Publish: Kubernetes Manifest"
