@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    {{- include "stacks-dotnet.annotations" . | nindent 8 }}
+  labels:
+        aadpodidbinding: {{ .Values.aadPodIdentityBinding }}
+    {{- include "stacks-dotnet.labels" . | nindent 8 }}
+  name: {{ include "stacks-dotnet.fullname" . }}
+  namespace: {{ .Values.namespace }}
+spec:
+  progressDeadlineSeconds: 600
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      {{- include "stacks-dotnet.selectorLabels" . | nindent 8 }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        {{- include "stacks-dotnet.annotations" . | nindent 8 }}
+      labels:
+        aadpodidbinding: {{ .Values.aadPodIdentityBinding }}
+      {{- include "stacks-dotnet.selectorLabels" . | nindent 8 }}
+    spec:
+      dnsPolicy: ClusterFirst
+      # New Config
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "stacks-dotnet.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ .Values.image.name }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: ENVIRONMENT
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['environment']
+            - name: VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['version']
+            - name: RELEASE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['release']
+            - name: API_BASEPATH
+              value: {{ .Values.ingress.path }}
+            - name: LOG_LEVEL
+              value: {{ .Values.pod.loglevel }}
+            - name: APPINSIGHTS_INSTRUMENTATIONKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "stacks-dotnet.secretName" . }}
+                  key: app_insights
+          volumeMounts:
+            - name: appsettings
+              mountPath: /app/config # this can either be configured if you are re-using this for many services or should be changed here
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+          # livenessProbe:
+          #   failureThreshold: 10
+          #   httpGet:
+          #     path: /health
+          #     port: 80
+          #     scheme: HTTP
+          #   initialDelaySeconds: 45
+          #   periodSeconds: 30
+          #   successThreshold: 1
+          #   timeoutSeconds: 25
+          # readinessProbe:
+          #   failureThreshold: 10
+          #   httpGet:
+          #     path: /health
+          #     port: 80
+          #     scheme: HTTP
+          #   periodSeconds: 30
+          #   successThreshold: 1
+          #   timeoutSeconds: 25
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: appsettings
+          configMap:
+            name: {{ include "stacks-dotnet.fullname" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
