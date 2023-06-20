@@ -277,8 +277,8 @@ stages:
                 - task: PublishPipelineArtifact@1
                   displayName: "Publish: Kubernetes Manifest"
                   inputs:
-                    path: $(Agent.BuildDirectory)/s/$(k8s_resource_file)
-                    artifact: manifests_dev
+                    path: $(Agent.BuildDirectory)/s/$(helm_value_file)
+                    artifact: helm_dev
 
                 # TODO: This functionality in general should be run via AIR, but there are limitations in CLI tooling.
                 - template: ../templates/legacy-deploy-functions.yml
@@ -463,8 +463,8 @@ stages:
                 - task: PublishPipelineArtifact@1
                   displayName: "Publish: Kubernetes Manifest"
                   inputs:
-                    path: $(Agent.BuildDirectory)/s/$(k8s_resource_file)
-                    artifact: manifests_prod
+                    path: $(Agent.BuildDirectory)/s/$(helm_value_file)
+                    artifact: helm_prod
 
                 # TODO: This functionality in general should be run via AIR, but there are limitations in CLI tooling.
                 - template: ../templates/legacy-deploy-functions.yml
