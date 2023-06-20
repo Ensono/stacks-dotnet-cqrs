@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    {{- include "stacks-dotnet-worker.annotations" . | nindent 8 }}
+  labels:
+    {{- include "stacks-dotnet-worker.labels" . | nindent 4 }}
+  name: {{ include "stacks-dotnet-worker.fullname" . }}
+  namespace: {{ .Values.namespace }}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+          "Using": [
+              "Serilog.Sinks.Console",
+              "Serilog.Sinks.ApplicationInsights"
+          ],
+          "MinimumLevel": {
+              "Default": "Debug",
+              "Override": {}
+          },
+          "WriteTo": [
+              { "Name": "Console" },
+              {
+                  "Name": "ApplicationInsights",
+                  "Args": {
+                      "telemetryConverter": "Serilog.Sinks.ApplicationInsights.Sinks.ApplicationInsights.TelemetryConverters.TraceTelemetryConverter, Serilog.Sinks.ApplicationInsights"
+                  }
+              }
+          ],
+          "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ],
+          "Destructure": []
+      },
+      "ServiceBusConfiguration": {
+        "Listener": {
+          "Topics": [
+            {
+              "Name": "{{ .Values.app.sbtopic }}",
+              "SubscriptionName": "{{ .Values.app.sbsubscription }}",
+              "ConcurrencyLevel": 5,
+              "DisableProcessing": false,
+              "ConnectionStringSecret": {
+                "Identifier": "SERVICEBUS_CONNECTIONSTRING",
+                "Source": "Environment"
+              },
+              "DisableMessageValidation": true
+            }
+          ]
+        }
+      }
+    }

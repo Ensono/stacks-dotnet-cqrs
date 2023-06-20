@@ -160,6 +160,12 @@ tasks:
       - Invoke-Kubectl  -provider $env:CLOUD_PROVIDER -target $env:K8S_CLUSTER_TARGET -identifier $env:K8S_CLUSTER_IDENTIFIER -Apply -Arguments $env:K8S_RESOURCE_FILE
       # - Invoke-Kubectl -provider Azure -target {{ .KUBECTL_TARGET }} -identifier {{ .KUBECTL_IDENTIFIER }} -Rollout -Arguments "-n $env:NAMESPACE deploy/$env:RESOURCE_DEF_NAME --timeout $env:DEPLOYMENT_STATUS_TIMEOUT"
 
+  deploy:helm:
+    context: powershell
+    description: Deploy to Kubernetes with Helm
+    command:
+      - Invoke-Helm -provider $env:CLOUD_PROVIDER -target $env:K8S_CLUSTER_TARGET -identifier $env:K8S_CLUSTER_IDENTIFIER -Install -valuepath $env:HELM_VALUE_FILE -chartpath $env:HELM_CHART_FILE -namespace $env:NAMESPACE -releasename $env:DOCKER_IMAGE_NAME
+
   deploy:functional_tests:
     context: powershell-dotnet
     description: Run Functional Tests
