@@ -288,7 +288,7 @@ stages:
                     container_registry_name: $(docker_container_registry_name_nonprod)
                     function_image_name: $(docker_image_name_asb_listener)
                     function_image_tag: $(docker_image_tag)
-                    function_name: func-asb-listener-umqjaa # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
+                    function_name: func-asb-listener-ymfpei # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
                     function_resource_group: amido-stacks-dev-euw-netcore-api-cqrs # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
 
                 - template: ../templates/legacy-deploy-functions.yml
@@ -298,7 +298,7 @@ stages:
                     container_registry_name: $(docker_container_registry_name_nonprod)
                     function_image_name: $(docker_image_name_aeh_listener)
                     function_image_tag: $(docker_image_tag)
-                    function_name: func-aeh-listener-drlobl # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
+                    function_name: func-aeh-listener-efleeq # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
                     function_resource_group: amido-stacks-dev-euw-netcore-api-cqrs # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
 
                 - template: ../templates/legacy-deploy-functions.yml
@@ -307,7 +307,7 @@ stages:
                     container_registry_name: $(docker_container_registry_name_nonprod)
                     function_image_name: $(docker_image_name_worker)
                     function_image_tag: $(docker_image_tag)
-                    function_name: function-publisher-umqjaa # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
+                    function_name: function-publisher-ymfpei # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
                     function_resource_group: amido-stacks-dev-euw-netcore-api-cqrs # TODO: This name is constructed in TF but we currently have no way of reading the output into the pipeline
 
 
