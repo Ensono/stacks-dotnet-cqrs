@@ -15,7 +15,7 @@ contexts:
         - /app
         - --env-file
         - envfile
-        - amidostacks/runner-pwsh:0.3.185-unstable
+        - amidostacks/runner-pwsh:0.3.205-stable
         - pwsh
         - -NoProfile
         - -Command
@@ -38,7 +38,7 @@ contexts:
         - /app
         - --env-file
         - envfile
-        - amidostacks/runner-pwsh-python:0.3.185-unstable
+        - amidostacks/runner-pwsh-python:0.3.205-stable
         - pwsh
         - -NoProfile
         - -Command
@@ -61,7 +61,7 @@ contexts:
         - /app
         - --env-file
         - envfile
-        - amidostacks/runner-pwsh-dotnet:0.3.185-unstable
+        - amidostacks/runner-pwsh-dotnet:0.3.205-stable
         - pwsh
         - -NoProfile
         - -Command
