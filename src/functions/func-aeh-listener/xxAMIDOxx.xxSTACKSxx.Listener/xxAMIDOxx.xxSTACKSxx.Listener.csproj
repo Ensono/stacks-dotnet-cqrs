@@ -4,16 +4,16 @@
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Amido.Stacks.Messaging.Azure.EventHub" Version="0.2.7-preview-master" />
+    <PackageReference Include="Amido.Stacks.Messaging.Azure.EventHub" Version="0.2.30" />
     <PackageReference Include="Microsoft.Azure.EventHubs" Version="4.3.2" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventHubs" Version="5.0.0" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventHubs" Version="6.0.1" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
-    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
   <ItemGroup>
@@ -32,6 +32,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FunctionsPreservedDependencies Include="Microsoft.Extensions.DependencyModel.dll"/>
+    <FunctionsPreservedDependencies Include="Microsoft.Extensions.DependencyModel.dll" />
   </ItemGroup>
 </Project>
