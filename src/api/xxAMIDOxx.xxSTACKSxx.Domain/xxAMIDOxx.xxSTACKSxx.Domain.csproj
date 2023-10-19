@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Amido.Stacks.Domain" Version="0.2.15" />
-        <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.29" />
+        <PackageReference Include="Amido.Stacks.Domain" Version="0.2.17" />
+        <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.93" />
     </ItemGroup>
 </Project>

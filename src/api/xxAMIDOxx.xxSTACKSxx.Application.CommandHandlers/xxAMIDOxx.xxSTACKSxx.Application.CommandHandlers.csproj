@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
@@ -10,7 +10,7 @@
     <ProjectReference Include="..\xxAMIDOxx.xxSTACKSxx.Domain\xxAMIDOxx.xxSTACKSxx.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amido.Stacks.Messaging.Azure.ServiceBus" Version="0.2.49" />
-    <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.29" />
+    <PackageReference Include="Amido.Stacks.Messaging.Azure.ServiceBus" Version="0.3.43" />
+    <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.93" />
   </ItemGroup>
 </Project>
