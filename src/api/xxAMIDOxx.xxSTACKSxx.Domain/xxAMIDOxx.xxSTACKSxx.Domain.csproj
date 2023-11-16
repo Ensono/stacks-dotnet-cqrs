@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Amido.Stacks.Domain" Version="0.2.17" />
-        <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.93" />
+        <PackageReference Include="Amido.Stacks.Domain" Version="0.2.19" />
+        <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.95" />
     </ItemGroup>
 </Project>

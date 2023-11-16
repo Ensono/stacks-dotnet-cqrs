@@ -12,6 +12,6 @@
 
     <ItemGroup>
         <PackageReference Include="Amido.Stacks.Data.Documents.Abstractions" Version="0.2.15" />
-        <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.93" />
+        <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.95" />
     </ItemGroup>
 </Project>

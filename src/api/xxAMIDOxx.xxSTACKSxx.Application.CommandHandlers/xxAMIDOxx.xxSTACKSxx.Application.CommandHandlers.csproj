@@ -10,7 +10,7 @@
     <ProjectReference Include="..\xxAMIDOxx.xxSTACKSxx.Domain\xxAMIDOxx.xxSTACKSxx.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amido.Stacks.Messaging.Azure.ServiceBus" Version="0.3.43" />
-    <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.93" />
+    <PackageReference Include="Amido.Stacks.Messaging.Azure.ServiceBus" Version="0.3.75" />
+    <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.95" />
   </ItemGroup>
 </Project>
