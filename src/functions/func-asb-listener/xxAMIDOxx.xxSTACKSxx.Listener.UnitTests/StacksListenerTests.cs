@@ -29,7 +29,7 @@ public class StacksListenerTests
         var msgBody = BuildMessageBody();
         var message = BuildMessage(msgBody);
 
-        var stacksListener = new StacksListener(msgReader, logger);
+        var stacksListener = new StacksListener(logger);
 
         stacksListener.Run(message);
 

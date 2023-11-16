@@ -1,5 +1,5 @@
-﻿using xxAMIDOxx.xxSTACKSxx.CQRS.ApplicationEvents;
-using Xbehave;
+﻿using TestStack.BDDfy;
+using xxAMIDOxx.xxSTACKSxx.CQRS.ApplicationEvents;
 using Xunit;
 using xxAMIDOxx.xxSTACKSxx.API.ComponentTests.Fixtures;
 
@@ -21,42 +21,47 @@ public class CreateMenuFeature
 
     */
 
-    [Scenario, CustomAutoData]
+    [Theory, CustomAutoData]
     public void CreateMenuAsAdminForValidMenuShouldSucceed(CreateMenuFixture fixture)
     {
-        "Given the user is authenticated and has the Admin role".x(() => fixture.GivenTheUserIsAnAuthenticatedAdministrator());
-        "And the menu does not does not exist".x(fixture.GivenAMenuDoesNotExist);
-        "When the menu is submitted".x(fixture.WhenTheMenuCreationIsSubmitted);
-        "Then a successful response is returned".x(fixture.ThenASuccessfulResponseIsReturned);
-        "And the response code is CREATED".x(fixture.ThenACreatedResponseIsReturned);
-        "And the id of the new menu is returned".x(fixture.ThenTheResourceCreatedResponseIsReturned);
-        "And the menu data is submitted correctly to the database".x(fixture.ThenTheMenuIsSubmittedToDatabase);
-        $"And an event of type {nameof(MenuCreatedEvent)} is raised".x(fixture.ThenAMenuCreatedEventIsRaised);
+        this.Given(_   => fixture.GivenTheUserIsAnAuthenticatedAdministrator(), "Given the user is authenticated and has the Admin role")
+                .And(_ => fixture.GivenAMenuDoesNotExist(), "And the menu does not does not exist")
+            .When(_    => fixture.WhenTheMenuCreationIsSubmitted(), "When the menu is submitted")
+            .Then(_    => fixture.ThenASuccessfulResponseIsReturned(), "Then a successful response is returned")
+                .And(_ => fixture.ThenACreatedResponseIsReturned(), "And the response code is CREATED")
+                .And(_ => fixture.ThenTheResourceCreatedResponseIsReturned(), "And the id of the new menu is returned")
+                .And(_ => fixture.ThenTheMenuIsSubmittedToDatabase(), "And the menu data is submitted correctly to the database")
+                .And(_ => fixture.ThenAMenuCreatedEventIsRaised(), $"And an event of type {nameof(MenuCreatedEvent)} is raised")
+            .BDDfy();
     }
 
-    [Scenario, CustomAutoData]
+
+    [Theory, CustomAutoData]
     public void CreateMenuAsAdminForInvalidMenuShouldFail(CreateMenuFixture fixture)
     {
-        "Given the user is authenticated and has the Admin role".x(() => fixture.GivenTheUserIsAnAuthenticatedAdministrator());
-        "And a valid menu being submitted".x(fixture.GivenAInvalidMenu);
-        "And the menu does not does not exist".x(fixture.GivenAMenuDoesNotExist);
-        "When the menu is submitted".x(fixture.WhenTheMenuCreationIsSubmitted);
-        "Then a failure response is returned".x(fixture.ThenAFailureResponseIsReturned);
-        "And the menu is not submitted to the database".x(fixture.ThenTheMenuIsNotSubmittedToDatabase);
-        $"And an event of type {nameof(MenuCreatedEvent)} should not be raised".x(fixture.ThenAMenuCreatedEventIsNotRaised);
+        this.Given(_   => fixture.GivenTheUserIsAnAuthenticatedAdministrator(), "Given the user is authenticated and has the Admin role")
+                .And(_ => fixture.GivenAInvalidMenu(), "And a valid menu being submitted")
+                .And(_ => fixture.GivenAMenuDoesNotExist(), "And the menu does not does not exist")
+            .When(_    => fixture.WhenTheMenuCreationIsSubmitted(), "When the menu is submitted")
+            .Then(_    => fixture.ThenAFailureResponseIsReturned(), "Then a failure response is returned")
+                .And(_ => fixture.ThenTheMenuIsNotSubmittedToDatabase(), "And the menu is not submitted to the database")
+                .And(_ => fixture.ThenAMenuCreatedEventIsNotRaised(), $"And an event of type {nameof(MenuCreatedEvent)} should not be raised")
+            .BDDfy();
     }
 
-    [Scenario(Skip = "Only works when Auth is implemented")]
+
+    [Theory(Skip = "Only works when Auth is implemented")]
     [CustomInlineAutoData("Employee")]
     [CustomInlineAutoData("Customer")]
     [CustomInlineAutoData("UnauthenticatedUser")]
     public void CreateMenuAsNonAdminForValidMenuShouldFail(string role, CreateMenuFixture fixture)
     {
-        $"Given the user is authenticated and has the {role} role".x(() => fixture.GivenTheUserIsAuthenticatedAndHasRole(role));
-        "And the menu does not does not exist".x(fixture.GivenAMenuDoesNotExist);
-        "When the menu is submitted".x(fixture.WhenTheMenuCreationIsSubmitted);
-        "Then a Forbidden response is returned".x(fixture.ThenAForbiddenResponseIsReturned);
-        "And the menu is not submitted to the database".x(fixture.ThenTheMenuIsNotSubmittedToDatabase);
-        $"And an event of type {nameof(MenuCreatedEvent)} should not be raised".x(fixture.ThenAMenuCreatedEventIsNotRaised);
+        this.Given(_   => fixture.GivenTheUserIsAuthenticatedAndHasRole(role), $"Given the user is authenticated and has the {role} role")
+                .And(_ => fixture.GivenAMenuDoesNotExist(), "And the menu does not does not exist")
+            .When(_    => fixture.WhenTheMenuCreationIsSubmitted(), "When the menu is submitted")
+            .Then(_    => fixture.ThenAForbiddenResponseIsReturned(), "Then a Forbidden response is returned")
+                .And(_ => fixture.ThenTheMenuIsNotSubmittedToDatabase(), "And the menu is not submitted to the database")
+                .And(_ => fixture.ThenAMenuCreatedEventIsNotRaised(), $"And an event of type {nameof(MenuCreatedEvent)} should not be raised")
+            .BDDfy();
     }
 }
