@@ -5,6 +5,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
+using xxAMIDOxx.xxSTACKSxx.Application.CQRS.Events;
 
 namespace xxAMIDOxx.xxSTACKSxx.Worker.UnitTests;
 
@@ -44,19 +45,19 @@ public class ChangeFeedListenerTests
         appEventPublisher.Received(0).PublishAsync(Arg.Any<IApplicationEvent>());
     }
 
-    private IReadOnlyList<Document> GetDocuments(int quantity)
+    private IReadOnlyList<CosmosDbChangeFeedEvent> GetDocuments(int quantity)
     {
-        var result = new List<Document>();
+        var result = new List<CosmosDbChangeFeedEvent>();
 
         for (int i = 0; i < quantity; i++)
         {
             var id = Guid.NewGuid();
-            result.Add(new Document()
-            {
-                Id = $"{id}",
-                ResourceId = $"{id}",
-                TimeToLive = 500
-            });
+            result.Add(new CosmosDbChangeFeedEvent(
+                operationCode: 101,
+                correlationId: id,
+                entityId: id,
+                eTag: Guid.NewGuid().ToString()));
+
         }
 
         return result;
