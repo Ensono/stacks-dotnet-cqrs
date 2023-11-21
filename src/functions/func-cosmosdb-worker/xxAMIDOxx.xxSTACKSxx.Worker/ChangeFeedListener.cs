@@ -24,23 +24,23 @@ public class ChangeFeedListener
     [FunctionName(Constants.FunctionNames.CosmosDbChangeFeedListener)]
     public void Run([CosmosDBTrigger(
         databaseName: "%COSMOSDB_DATABASE_NAME%",
-        collectionName: "%COSMOSDB_COLLECTION_NAME%",
-        ConnectionStringSetting = "COSMOSDB_CONNECTIONSTRING",
-        LeaseCollectionName = "%COSMOSDB_LEASE_COLLECTION_NAME%",
-        CreateLeaseCollectionIfNotExists = true)]IReadOnlyList<Document> input)
+        containerName: "%COSMOSDB_COLLECTION_NAME%",
+        Connection  = "COSMOSDB_CONNECTIONSTRING",
+        LeaseContainerName  = "%COSMOSDB_LEASE_COLLECTION_NAME%",
+        CreateLeaseContainerIfNotExists  = true)]IReadOnlyList<CosmosDbChangeFeedEvent> input)
     {
         if (input != null && input.Count > 0)
         {
             logger.LogInformation("Documents modified " + input.Count);
             foreach (var changedItem in input)
             {
-                logger.LogInformation("Document read. Id: " + changedItem.Id);
+                logger.LogInformation("Document read. Id: " + changedItem.EntityId);
 
                 var cosmosDbEvent = new CosmosDbChangeFeedEvent(
                     operationCode: 999,
                     correlationId: Guid.NewGuid(),
-                    Guid.Parse(changedItem.Id),
-                    changedItem.ETag);
+                    entityId: changedItem.EntityId,
+                    eTag: changedItem.ETag);
 
                 appEventPublisher.PublishAsync(cosmosDbEvent);
             }
