@@ -18,7 +18,7 @@
     <PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.25" />
     <PackageReference Include="Amido.Stacks.DynamoDB" Version="0.2.95" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.300.6" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.300.19" />
   </ItemGroup>
 
   <ItemGroup>
