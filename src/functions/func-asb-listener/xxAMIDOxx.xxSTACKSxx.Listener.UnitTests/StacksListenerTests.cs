@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Text;
 using Amido.Stacks.Core.Operations;
-using Amido.Stacks.Messaging.Azure.ServiceBus.Extensions;
-using Amido.Stacks.Messaging.Azure.ServiceBus.Serializers;
 using Azure.Messaging.ServiceBus;
-using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NSubstitute;
@@ -29,7 +26,7 @@ public class StacksListenerTests
         var msgBody = BuildMessageBody();
         var message = BuildMessage(msgBody);
 
-        var stacksListener = new StacksListener(msgReader, logger);
+        var stacksListener = new StacksListener(logger);
 
         stacksListener.Run(message);
 
