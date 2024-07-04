@@ -62,19 +62,23 @@ public class Startup
         if (useOpenTelemetry)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            services.AddOpenTelemetryTracing((builder) => builder
-                .SetResourceBuilder(ResourceBuilder.CreateDefault()
-                    .AddService(Environment.GetEnvironmentVariable(Constants.EnvironmentVariables.OtlpServiceName)))
-                .AddAspNetCoreInstrumentation()
-                .AddConsoleExporter(options =>
-                {
-                    options.Targets = ConsoleExporterOutputTargets.Debug;
-                })
-                .AddOtlpExporter(otlpOptions =>
-                {
-                    otlpOptions.Endpoint =
-                        new Uri(Environment.GetEnvironmentVariable(Constants.EnvironmentVariables.OltpEndpoint));
-                }));
+            services.AddOpenTelemetry()
+                    .WithTracing(builder =>
+                    {
+                        builder.ConfigureResource(resource =>
+                        {
+                            resource.AddService(Environment.GetEnvironmentVariable(Constants.EnvironmentVariables.OtlpServiceName));
+                        });
+                        builder.AddAspNetCoreInstrumentation();
+                        builder.AddConsoleExporter(options =>
+                        {
+                            options.Targets = ConsoleExporterOutputTargets.Debug;
+                        });
+                        builder.AddOtlpExporter(options =>
+                        {
+                            options.Endpoint = new Uri(Environment.GetEnvironmentVariable(Constants.EnvironmentVariables.OltpEndpoint));
+                        });
+                    });
         }
 
         services.AddHealthChecks();

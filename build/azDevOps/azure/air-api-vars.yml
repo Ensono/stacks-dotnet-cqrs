@@ -144,6 +144,13 @@ variables:
   # Kubernetes target file location
   - name: k8s_resource_file
     value: "deploy/k8s/app/api-deploy.yml"
+
+  # Helm file locations
+  - name: helm_chart_file
+    value: "deploy/helm/stacks-dotnet"
+  - name: helm_value_file
+    value: "deploy/helm/stacks-dotnet/values.yaml"
+
   # Versioning
   - name: version_major
     value: 7
@@ -163,10 +170,10 @@ variables:
     value: deployment # Static definition within Influx Config
   - group: amido-stacks-influx-credentials-prod
     # Group should contain:
-    # DASHBOARD_INFLUX_ORG
-    # DASHBOARD_INFLUX_BUCKET
-    # DASHBOARD_INFLUX_TOKEN
-    # DASHBOARD_INFLUX_SERVER
+      # DASHBOARD_INFLUX_ORG
+      # DASHBOARD_INFLUX_BUCKET
+      # DASHBOARD_INFLUX_TOKEN
+      # DASHBOARD_INFLUX_SERVER
 
   # GitHub Release
   - name: create_release

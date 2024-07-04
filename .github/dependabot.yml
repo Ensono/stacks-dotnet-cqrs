@@ -3,7 +3,8 @@ updates:
   - package-ecosystem: nuget
     directory: "/src/api"
     schedule:
-      interval: daily
+      interval: weekly
+      day: monday
       timezone: Europe/London
     open-pull-requests-limit: 10
     rebase-strategy: disabled
@@ -11,7 +12,8 @@ updates:
   - package-ecosystem: nuget
     directory: "/src/tests/Functional"
     schedule:
-      interval: daily
+      interval: weekly
+      day: monday
       timezone: Europe/London
     open-pull-requests-limit: 10
     rebase-strategy: disabled
@@ -19,7 +21,8 @@ updates:
   - package-ecosystem: terraform
     directory: "/deploy/azure/app/kube"
     schedule:
-      interval: daily
+      interval: weekly
+      day: monday
       timezone: Europe/London
     open-pull-requests-limit: 10
     rebase-strategy: disabled
